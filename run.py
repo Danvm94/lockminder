@@ -35,7 +35,7 @@ def create_db(database_path):
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS {TABLE}
                   (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  username TEXT NOT NULL UNIQUE,
+                  username TEXT NOT NULL,
                   password TEXT NOT NULL,
                   service TEXT NOT NULL);''')
     conn.close()
@@ -49,14 +49,30 @@ def connect_db(database_path):
         sqlite3.Connection: The connection object for the SQLite database.
     """
     connector = sqlite3.connect(database_path)
+
     return connector
 
-def display_menu():
+def add_account(database):
+    print("LockMinder Add Account\n")
+    service = input("Please type the service name:\n")
+    username = input("Please type the service username:\n")
+    password = input("Please type the service password:\n")
+    new_entry = (username, password, service)
+    cursor = database.cursor()
+    cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
+    database.commit()
+    cursor.close()
+    print(f"Your {service} is now added to the credentials list.")
+    repeat = input("Would you like to go back to the main menu? (Y / N): ")
+    if repeat == "Y":
+        display_menu(database)
+
+def display_menu(database):
     options = {
-    "1": test_print,
-    "2": test_print,
-    "3": test_print,
-}
+    "1": add_account,
+    "2": add_account,
+    "3": add_account,
+    }
     print("LockMinder Menu:")
     print("1. Add an account and password")
     print("2. View all accounts")
@@ -66,19 +82,12 @@ def display_menu():
     print("6. Retrieve a password")
     print("0. Exit")
     choice = input("Select one of the options: ")
-    options.get(choice, lambda: print("Invalid choice. Please try again."))()
-
-def test_print():
-    print("testing")
+    options[choice](database)
 
 def main():
     print("Welcome to LockMinder\n")
     check_db_presence(DATABASE_PATH)
     database = connect_db(DATABASE_PATH)
-    print(database.execute(f"SELECT * FROM {TABLE}").fetchall())
-    
-    
+    display_menu(database)
 
-
-display_menu()
-
+main()
