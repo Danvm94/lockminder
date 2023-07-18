@@ -33,11 +33,11 @@ def create_db(database_path):
     print(f"Creating: {database_path}.\n")
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS {TABLE}
+    cursor.execute(f"""CREATE TABLE IF NOT EXISTS {TABLE}
                   (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   username TEXT NOT NULL,
                   password TEXT NOT NULL,
-                  service TEXT NOT NULL);''')
+                  service TEXT NOT NULL);""")
     conn.close()
 
 def connect_db(database_path):
@@ -67,10 +67,19 @@ def add_account(database):
     if repeat == "Y":
         display_menu(database)
 
+def view_all_accounts(database):
+    print("LockMinder view all accounts\n")
+    cursor = database.cursor()
+    cursor.execute(f"SELECT * FROM {TABLE}")
+    rows = cursor.fetchall()
+    for row in rows:
+        id, username, password, service = row
+        print(f"ID: {id} - Service: {service} - Username: {username} - Password: *******")
+
 def display_menu(database):
     options = {
     "1": add_account,
-    "2": add_account,
+    "2": view_all_accounts,
     "3": add_account,
     }
     print("LockMinder Menu:")
