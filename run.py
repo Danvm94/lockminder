@@ -4,9 +4,10 @@ import sqlite3
 import os
 
 # Specify the path and filename of the SQLite database file
-DATABASE = 'passwords.db'
+DATABASE_PATH = 'passwords.db'
+TABLE = "credentials"
 
-def check_db_presence(database):
+def check_db_presence(database_path):
     """
     Check the presence of a database file and create it if it doesn't exist.
     Args:
@@ -14,14 +15,14 @@ def check_db_presence(database):
     Returns:
         None
     """
-    print(f"Checking for: {database} presence.\n")
-    if not os.path.exists(database):
-        print(f"There is no database file at the path provided: {database}.\n")
-        create_db(database)
+    print(f"Checking for: {database_path} presence.\n")
+    if not os.path.exists(database_path):
+        print(f"There is no database file at the path provided: {database_path}.\n")
+        create_db(database_path)
     else:
-        print(f"Database presence confirmed: {database}.\n")
+        print(f"Database presence confirmed: {database_path}.\n")
 
-def create_db(database):
+def create_db(database_path):
     """
     Create a new SQLite database with a 'credentials' table.
     Args:
@@ -29,20 +30,33 @@ def create_db(database):
     Returns:
         None
     """
-    print(f"Creating: {database}.\n")
-    conn = sqlite3.connect(database)
+    print(f"Creating: {database_path}.\n")
+    conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS credentials
+    cursor.execute('''CREATE TABLE IF NOT EXISTS {TABLE}
                   (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   username TEXT NOT NULL UNIQUE,
                   password TEXT NOT NULL,
                   service TEXT NOT NULL);''')
     conn.close()
 
+def connect_db(database_path):
+    """
+    Establish a connection to an SQLite database.
+    Args:
+        database_path (str): The path and filename of the database file.
+    Returns:
+        sqlite3.Connection: The connection object for the SQLite database.
+    """
+    connector = sqlite3.connect(database_path)
+    return connector
 
 
 def main():
-    check_db_presence(DATABASE)
+    print("Welcome to LockMinder\n")
+    check_db_presence(DATABASE_PATH)
+    database = connect_db(DATABASE_PATH)
+    print(database.execute(f"SELECT * FROM {TABLE}").fetchall())
 
 main()
 
