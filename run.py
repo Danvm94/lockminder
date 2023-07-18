@@ -51,12 +51,34 @@ def connect_db(database_path):
     connector = sqlite3.connect(database_path)
     return connector
 
+def display_menu():
+    options = {
+    "1": test_print,
+    "2": test_print,
+    "3": test_print,
+}
+    print("LockMinder Menu:")
+    print("1. Add an account and password")
+    print("2. View all accounts")
+    print("3. Update an account's password")
+    print("4. Delete an account")
+    print("5. Generate a password")
+    print("6. Retrieve a password")
+    print("0. Exit")
+    choice = input("Select one of the options: ")
+    options.get(choice, lambda: print("Invalid choice. Please try again."))()
+
+def test_print():
+    print("testing")
 
 def main():
     print("Welcome to LockMinder\n")
     check_db_presence(DATABASE_PATH)
     database = connect_db(DATABASE_PATH)
     print(database.execute(f"SELECT * FROM {TABLE}").fetchall())
+    
+    
 
-main()
+
+display_menu()
 
