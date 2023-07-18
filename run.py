@@ -4,22 +4,45 @@ import sqlite3
 import os
 
 # Specify the path and filename of the SQLite database file
-DATABASE = '.\passwords.db'
+DATABASE = 'passwords.db'
 
 def check_db_presence(database):
     """
-    Check the presence of a database file at the specified path.
+    Check the presence of a database file and create it if it doesn't exist.
     Args:
         database (str): The path and filename of the database file.
     Returns:
-        bool: True if the database file exists, False otherwise.
+        None
     """
+    print(f"Checking for: {database} presence.\n")
     if not os.path.exists(database):
-        print(f"There is no database file at the path provided: {database}")
-        return False
+        print(f"There is no database file at the path provided: {database}.\n")
+        create_db(database)
     else:
-        return True
+        print(f"Database presence confirmed: {database}.\n")
+
+def create_db(database):
+    """
+    Create a new SQLite database with a 'credentials' table.
+    Args:
+        database (str): The path and filename of the database file.
+    Returns:
+        None
+    """
+    print(f"Creating: {database}.\n")
+    conn = sqlite3.connect(database)
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS credentials
+                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  username TEXT NOT NULL UNIQUE,
+                  password TEXT NOT NULL,
+                  service TEXT NOT NULL);''')
+    conn.close()
+
+
 
 def main():
-    pass
+    check_db_presence(DATABASE)
+
+main()
 
