@@ -79,7 +79,6 @@ def update_account(database):
     print("LockMinder update an account\n")
     entry_id = int(input("Please type the account ID that you want to update: "))
     cursor = database.cursor()
-    cursor.execute(f"SELECT * FROM {TABLE} WHERE ID = {entry_id}")
     service = input("Please type the service name:\n")
     username = input("Please type the service username:\n")
     password = input("Please type the service password:\n")
@@ -89,6 +88,11 @@ def update_account(database):
     cursor.close()
     print(f"Your {service} account is now updated on the credentials list.")
 
+def delete_account(database):
+    print("LockMinder update an account\n")
+    entry_id = int(input("Please type the account ID that you want to delete: "))
+    cursor = database.cursor()
+    
 def replay_display_menu():
         repeat = input("Would you like to go back to the main menu? (Y / N): ")
         if repeat == "Y":
