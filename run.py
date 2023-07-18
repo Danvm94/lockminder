@@ -63,9 +63,7 @@ def add_account(database):
     database.commit()
     cursor.close()
     print(f"Your {service} is now added to the credentials list.")
-    repeat = input("Would you like to go back to the main menu? (Y / N): ")
-    if repeat == "Y":
-        display_menu(database)
+    display_menu(database) if replay_display_menu() else None
 
 def view_all_accounts(database):
     print("LockMinder view all accounts\n")
@@ -75,6 +73,14 @@ def view_all_accounts(database):
     for row in rows:
         id, username, password, service = row
         print(f"ID: {id} - Service: {service} - Username: {username} - Password: *******")
+    display_menu(database) if replay_display_menu() else None
+
+def replay_display_menu():
+        repeat = input("Would you like to go back to the main menu? (Y / N): ")
+        if repeat == "Y":
+            return True
+        else:
+            return False
 
 def display_menu(database):
     options = {
