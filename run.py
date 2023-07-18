@@ -75,6 +75,20 @@ def view_all_accounts(database):
         print(f"ID: {id} - Service: {service} - Username: {username} - Password: *******")
     display_menu(database) if replay_display_menu() else None
 
+def update_account(database):
+    print("LockMinder update an account\n")
+    entry_id = int(input("Please type the account ID that you want to update: "))
+    cursor = database.cursor()
+    cursor.execute(f"SELECT * FROM {TABLE} WHERE ID = {entry_id}")
+    service = input("Please type the service name:\n")
+    username = input("Please type the service username:\n")
+    password = input("Please type the service password:\n")
+    new_entry = (username, password, service, entry_id)
+    cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = ?", new_entry)
+    database.commit()
+    cursor.close()
+    print(f"Your {service} account is now updated on the credentials list.")
+
 def replay_display_menu():
         repeat = input("Would you like to go back to the main menu? (Y / N): ")
         if repeat == "Y":
@@ -86,12 +100,12 @@ def display_menu(database):
     options = {
     "1": add_account,
     "2": view_all_accounts,
-    "3": add_account,
+    "3": update_account,
     }
     print("LockMinder Menu:")
-    print("1. Add an account and password")
+    print("1. Add an account")
     print("2. View all accounts")
-    print("3. Update an account's password")
+    print("3. Update an account")
     print("4. Delete an account")
     print("5. Generate a password")
     print("6. Retrieve a password")
