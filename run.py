@@ -52,6 +52,7 @@ def connect_db(database_path):
 
     return connector
 
+# "1": add an account
 def add_account(database):
     print("LockMinder Add Account\n")
     service = input("Please type the service name:\n")
@@ -65,6 +66,7 @@ def add_account(database):
     print(f"Your {service} is now added to the credentials list.")
     display_menu(database) if replay_display_menu() else None
 
+# "2": view all accounts
 def view_all_accounts(database):
     print("LockMinder view all accounts\n")
     cursor = database.cursor()
@@ -75,6 +77,7 @@ def view_all_accounts(database):
         print(f"ID: {id} - Service: {service} - Username: {username} - Password: *******")
     display_menu(database) if replay_display_menu() else None
 
+# "3": update an account
 def update_account(database):
     print("LockMinder update an account\n")
     entry_id = int(input("Please type the account ID that you want to update: "))
@@ -88,10 +91,14 @@ def update_account(database):
     cursor.close()
     print(f"Your {service} account is now updated on the credentials list.")
 
+# "4": delete an account
 def delete_account(database):
     print("LockMinder update an account\n")
     entry_id = int(input("Please type the account ID that you want to delete: "))
     cursor = database.cursor()
+    cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};")
+    database.commit()
+    display_menu(database) if replay_display_menu() else None
     
 def replay_display_menu():
         repeat = input("Would you like to go back to the main menu? (Y / N): ")
@@ -105,6 +112,7 @@ def display_menu(database):
     "1": add_account,
     "2": view_all_accounts,
     "3": update_account,
+    "4": delete_account,
     }
     print("LockMinder Menu:")
     print("1. Add an account")
