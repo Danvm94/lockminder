@@ -2,6 +2,7 @@
 import sqlite3
 # os library to check if file exists
 import os
+from random import randrange
 
 # Specify the path and filename of the SQLite database file
 DATABASE_PATH = 'passwords.db'
@@ -100,6 +101,19 @@ def delete_account(database):
     database.commit()
     display_menu(database) if replay_display_menu() else None
     
+# "5": generate a password
+def generate_password(database):
+    print("LockMinder password generator\n")
+    password_length = int(input("Please type the password length (min: 1 | max: 50): "))
+    new_password = ""
+    for char in range(password_length):
+        new_dec_char = randrange(33, 126)
+        new_char = chr(new_dec_char)
+        new_password += new_char
+    print("Follow the new password below:\n")
+    print(new_password)
+    display_menu(database) if replay_display_menu() else None
+
 def replay_display_menu():
         repeat = input("Would you like to go back to the main menu? (Y / N): ")
         if repeat == "Y":
@@ -113,6 +127,7 @@ def display_menu(database):
     "2": view_all_accounts,
     "3": update_account,
     "4": delete_account,
+    "5": generate_password,
     }
     print("LockMinder Menu:")
     print("1. Add an account")
