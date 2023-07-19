@@ -114,6 +114,19 @@ def generate_password(database):
     print(new_password)
     display_menu(database) if replay_display_menu() else None
 
+# "6": retrieve a password
+def retrieve_password(database):
+    print("LockMinder retrieve a password\n")
+    entry_id = int(input("Please type the account ID that you want to retrieve: "))
+    cursor = database.cursor()
+    cursor.execute(f"SELECT * FROM {TABLE} WHERE id={entry_id}")
+    rows = cursor.fetchall()
+    for row in rows:
+        id, username, password, service = row
+        print(f"ID: {id} - Service: {service} - Username: {username} - Password: {password}")
+        
+    display_menu(database) if replay_display_menu() else None
+
 def replay_display_menu():
         repeat = input("Would you like to go back to the main menu? (Y / N): ")
         if repeat == "Y":
@@ -128,6 +141,7 @@ def display_menu(database):
     "3": update_account,
     "4": delete_account,
     "5": generate_password,
+    "6": retrieve_password,
     }
     print("LockMinder Menu:")
     print("1. Add an account")
