@@ -135,24 +135,27 @@ def replay_display_menu():
             return False
 
 def display_menu(database):
-    options = {
-    "1": add_account,
-    "2": view_all_accounts,
-    "3": update_account,
-    "4": delete_account,
-    "5": generate_password,
-    "6": retrieve_password,
-    }
-    print("LockMinder Menu:")
-    print("1. Add an account")
-    print("2. View all accounts")
-    print("3. Update an account")
-    print("4. Delete an account")
-    print("5. Generate a password")
-    print("6. Retrieve a password")
-    print("0. Exit")
-    choice = input("Select one of the options: ")
-    options[choice](database)
+    while True:
+        options = {
+        "1": add_account,
+        "2": view_all_accounts,
+        "3": update_account,
+        "4": delete_account,
+        "5": generate_password,
+        "6": retrieve_password,
+        }
+        print("LockMinder Menu:")
+        print("1. Add an account")
+        print("2. View all accounts")
+        print("3. Update an account")
+        print("4. Delete an account")
+        print("5. Generate a password")
+        print("6. Retrieve a password")
+        print("0. Exit")
+        choice = input("Select one of the options: ")
+        if choice in options:
+            options[choice](database)
+            break
 
 def main():
     print("Welcome to LockMinder\n")
