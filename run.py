@@ -161,9 +161,11 @@ def display_menu(database):
         choice = input("Select one of the options: ")
 
         if choice in options:
+            os.system('clear')
             options[choice][0](database)
             break
         else:
+            os.system('clear')
             print("Please select a valid option.")
 
 def print_menu(options):
