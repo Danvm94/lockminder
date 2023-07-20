@@ -63,19 +63,33 @@ def get_column_names(database):
             column_name = column_info[1]
             column_dict[column_name] = ""
     return column_dict
+
+def get_database_values(database, key, value):
+    with database: 
+        cursor = database.cursor()
+        cursor.execute(f"SELECT * FROM {TABLE} WHERE {key} = {value}")
+        results = cursor.fetchall()
+        column_names = [description[0] for description in cursor.description]
+        table = PrettyTable(column_names)
+        for row in results:
+            table.add_row(row)
+        return table
         
 # "1": add an account
 def add_account(database):
     print("LockMinder Add Account\n")
     column_dict = get_column_names(database)
     for key,value in column_dict.items():
-        column_dict[key] = input(f"Please type the {key}: ")
-        
+        column_dict[key] = input(f"Please type the {key}: ")     
     new_entry = tuple(value for value in column_dict.values())
+    
     with database: 
         cursor = database.cursor()
         cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
-    print(f"Your account is now added to the credentials list.")
+        last_row_id = cursor.lastrowid
+        print(f"Your account is now added to the credentials list.")
+        row = get_database_values(database, key="id", value=last_row_id)
+        print(row)
     display_menu(database) if replay_display_menu() else None
 
 # "2": view all accounts
