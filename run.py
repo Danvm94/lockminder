@@ -64,10 +64,13 @@ def get_column_names(database):
             column_dict[column_name] = ""
     return column_dict
 
-def get_database_values(database, key, value):
+def get_database_values(database, key=None, value=None):
     with database: 
         cursor = database.cursor()
-        cursor.execute(f"SELECT * FROM {TABLE} WHERE {key} = {value}")
+        if key and value:
+            cursor.execute(f"SELECT * FROM {TABLE} WHERE {key} = {value}")
+        else:
+            cursor.execute(f"SELECT * FROM {TABLE}")
         results = cursor.fetchall()
         column_names = [description[0] for description in cursor.description]
         table = PrettyTable(column_names)
@@ -82,7 +85,7 @@ def add_account(database):
     for key,value in column_dict.items():
         column_dict[key] = input(f"Please type the {key}: ")     
     new_entry = tuple(value for value in column_dict.values())
-    
+
     with database: 
         cursor = database.cursor()
         cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
@@ -95,12 +98,8 @@ def add_account(database):
 # "2": view all accounts
 def view_all_accounts(database):
     print("LockMinder view all accounts\n")
-    cursor = database.cursor()
-    cursor.execute(f"SELECT * FROM {TABLE}")
-    rows = cursor.fetchall()
-    for row in rows:
-        id, username, password, service = row
-        print(f"ID: {id} - Service: {service} - Username: {username} - Password: *******")
+    rows = get_database_values(database)
+    print(rows)
     display_menu(database) if replay_display_menu() else None
 
 # "3": update an account
