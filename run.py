@@ -85,6 +85,12 @@ def prompt_values(database):
     new_entry = tuple(value for value in column_dict.values())
     return new_entry
 
+def entry_exist(cursor):
+    if cursor.fetchone() is None:
+        return False
+    else:
+        return True
+        
 # "1": add an account
 def add_account(database):
     print("LockMinder Add Account\n")
@@ -107,15 +113,21 @@ def view_all_accounts(database):
 
 # "3": update an account
 def update_account(database):
-    print("LockMinder update an account\n")
-    entry_id = int(input("Please type the account ID that you want to update: "))
-    new_entry = prompt_values(database)
-    with database:
-        cursor = database.cursor()
-        cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = {entry_id}", new_entry)
-        row = get_database_values(database, key="id", value=entry_id)
-        print(f"Your account is now updated on the credentials list.")
-        print(row)
+    while True:
+        print("LockMinder update an account\n")
+        entry_id = int(input("Please type the account ID that you want to update: "))
+        with database:
+            cursor = database.cursor()
+            cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+            if not entry_exist(cursor):
+                print(f"There is no entry number {entry_id}")
+            else:
+                new_entry = prompt_values(database)
+                cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = {entry_id}", new_entry)
+                row = get_database_values(database, key="id", value=entry_id)
+                print(f"Your account is now updated on the credentials list.")
+                print(row)
+                break
 
 # "4": delete an account
 def delete_account(database):
