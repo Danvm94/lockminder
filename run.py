@@ -137,14 +137,19 @@ def update_account(database):
                 print(f"Your account is now updated on the credentials list.")
                 print(row)
                 break
+    display_menu(database) if replay_display_menu() else None
 
 # "4": delete an account
 def delete_account(database):
     print("LockMinder update an account\n")
-    entry_id = int(input("Please type the account ID that you want to delete: "))
-    cursor = database.cursor()
-    cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};")
-    database.commit()
+    entry_id = request_id("Please type the account ID that you want to delete: ")
+    with database:
+        cursor = database.cursor()
+        cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+        if not entry_exist(cursor):
+            print(f"There is no entry number {entry_id}")
+        else:
+            cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};") 
     display_menu(database) if replay_display_menu() else None
     
 # "5": generate a password
