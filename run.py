@@ -3,10 +3,11 @@ import sqlite3
 # os library to check if file exists
 import os
 from random import randrange
+from prettytable import PrettyTable
 
 # Specify the path and filename of the SQLite database file
 DATABASE_PATH = 'passwords.db'
-TABLE = "credentials"
+TABLE = "credentials"   
 
 def check_db_presence(database_path):
     """
@@ -135,23 +136,54 @@ def replay_display_menu():
             return False
 
 def display_menu(database):
+    """Displays the LockMinder menu and handles user input for various options.
+
+    Parameters:
+        database (object): The database object or connection needed for the menu functions.
+
+    The function displays a menu with options and descriptions using PrettyTable.
+    It continuously prompts the user to select an option until a valid choice is made.
+    Once a valid option is chosen, the corresponding function for that option is executed.
+    The user can exit the menu by selecting '0', which calls the 'exit' function.
+    """
     while True:
         options = {
-        "1": [add_account, "Add an account."],
-        "2": [view_all_accounts, "View all accounts."],
-        "3": [update_account, "Update an account."],
-        "4": [delete_account, "Delete an account."],
-        "5": [generate_password, "Generate a password."],
-        "6": [retrieve_password, "Retrieve a password."],
-        "0": [exit, "Exit."]
+            "1": [add_account, "Add an account."],
+            "2": [view_all_accounts, "View all accounts."],
+            "3": [update_account, "Update an account."],
+            "4": [delete_account, "Delete an account."],
+            "5": [generate_password, "Generate a password."],
+            "6": [retrieve_password, "Retrieve a password."],
+            "0": [exit, "Exit."]
         }
-        print("LockMinder Menu:")
-        for key,value in options.items():
-            print(key, value[1])
+
+        print_menu(options)
         choice = input("Select one of the options: ")
+
         if choice in options:
             options[choice][0](database)
             break
+        else:
+            print("Please select a valid option.")
+
+def print_menu(options):
+    """Prints the LockMinder menu with options and their descriptions.
+
+    Parameters:
+        options (dict): A dictionary containing menu options and their descriptions.
+                        The keys are option numbers (e.g., "1", "2", etc.).
+                        The values are lists with two elements:
+                            1. The function to call for the option.
+                            2. The description of the option.
+
+    The function creates a PrettyTable and populates it with the option numbers and descriptions.
+    It then prints the table to display the LockMinder menu with all available options.
+    """
+    print("LockMinder Menu:")
+    menu = PrettyTable(["OPTION", "DESCRIPTION"])
+    for key, value in options.items():
+        menu.add_row([key, value[1]])
+    print(menu)
 
 def main():
     print("Welcome to LockMinder\n")
