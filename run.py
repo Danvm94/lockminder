@@ -129,10 +129,21 @@ def retrieve_password(database):
     display_menu(database) if replay_display_menu() else None
 
 def replay_display_menu():
-        repeat = input("Would you like to go back to the main menu? (Y / N): ")
+    """Asks the user if they want to go back to the main menu.
+
+        Returns:
+            bool: True if the user wants to go back (chooses 'Y'), False if they do not want to go back (chooses 'N').
+
+        The function repeatedly prompts the user with a question asking if they would like to return
+        to the main menu. The user's input is converted to uppercase using the 'upper()' method for case-insensitive comparison.
+        If the user chooses 'Y', the function returns True, indicating they want to go back, and exits the loop.
+        If the user chooses 'N', the function returns False, indicating they do not want to go back, and exits the loop.
+    """
+    while True:
+        repeat = input("Would you like to go back to the main menu? (Y / N): ").upper()
         if repeat == "Y":
             return True
-        else:
+        elif repeat == "N":
             return False
 
 def display_menu(database):
