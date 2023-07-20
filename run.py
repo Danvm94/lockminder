@@ -78,14 +78,17 @@ def get_database_values(database, key=None, value=None):
             table.add_row(row)
         return table
         
-# "1": add an account
-def add_account(database):
-    print("LockMinder Add Account\n")
+def prompt_values(database):
     column_dict = get_column_names(database)
     for key,value in column_dict.items():
         column_dict[key] = input(f"Please type the {key}: ")     
     new_entry = tuple(value for value in column_dict.values())
+    return new_entry
 
+# "1": add an account
+def add_account(database):
+    print("LockMinder Add Account\n")
+    new_entry = prompt_values(database)
     with database: 
         cursor = database.cursor()
         cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
@@ -106,15 +109,13 @@ def view_all_accounts(database):
 def update_account(database):
     print("LockMinder update an account\n")
     entry_id = int(input("Please type the account ID that you want to update: "))
-    cursor = database.cursor()
-    service = input("Please type the service name:\n")
-    username = input("Please type the service username:\n")
-    password = input("Please type the service password:\n")
-    new_entry = (username, password, service, entry_id)
-    cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = ?", new_entry)
-    database.commit()
-    cursor.close()
-    print(f"Your {service} account is now updated on the credentials list.")
+    new_entry = prompt_values(database)
+    with database:
+        cursor = database.cursor()
+        cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = {entry_id}", new_entry)
+        row = get_database_values(database, key="id", value=entry_id)
+        print(f"Your account is now updated on the credentials list.")
+        print(row)
 
 # "4": delete an account
 def delete_account(database):
