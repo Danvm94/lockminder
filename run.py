@@ -90,7 +90,16 @@ def entry_exist(cursor):
         return False
     else:
         return True
-        
+
+def request_id(message):
+    while True:
+        entry_id = input(message)
+        try:
+            entry_id = int(entry_id)
+            return entry_id
+        except ValueError:
+            print("Invalid id. Please enter an integer number.")
+
 # "1": add an account
 def add_account(database):
     print("LockMinder Add Account\n")
@@ -115,7 +124,7 @@ def view_all_accounts(database):
 def update_account(database):
     while True:
         print("LockMinder update an account\n")
-        entry_id = int(input("Please type the account ID that you want to update: "))
+        entry_id = request_id("Please type the account ID that you want to update: ")
         with database:
             cursor = database.cursor()
             cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
