@@ -54,18 +54,28 @@ def connect_db(database_path):
 
     return connector
 
+def get_column_names(database):
+    column_dict = {}
+    with database:
+        cursor = database.cursor()
+        cursor.execute(f"PRAGMA table_info({TABLE})")
+        for column_info in cursor.fetchall()[1:]:
+            column_name = column_info[1]
+            column_dict[column_name] = ""
+    return column_dict
+        
 # "1": add an account
 def add_account(database):
     print("LockMinder Add Account\n")
-    service = input("Please type the service name:\n")
-    username = input("Please type the service username:\n")
-    password = input("Please type the service password:\n")
-    new_entry = (username, password, service)
-    cursor = database.cursor()
-    cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
-    database.commit()
-    cursor.close()
-    print(f"Your {service} is now added to the credentials list.")
+    column_dict = get_column_names(database)
+    for key,value in column_dict.items():
+        column_dict[key] = input(f"Please type the {key}: ")
+        
+    new_entry = tuple(value for value in column_dict.values())
+    with database: 
+        cursor = database.cursor()
+        cursor.execute(f"INSERT INTO {TABLE} (username, password, service) VALUES (?, ?, ?)", new_entry)
+    print(f"Your account is now added to the credentials list.")
     display_menu(database) if replay_display_menu() else None
 
 # "2": view all accounts
