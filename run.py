@@ -168,14 +168,15 @@ def generate_password(database):
 # "6": retrieve a password
 def retrieve_password(database):
     print("LockMinder retrieve a password\n")
-    entry_id = int(input("Please type the account ID that you want to retrieve: "))
-    cursor = database.cursor()
-    cursor.execute(f"SELECT * FROM {TABLE} WHERE id={entry_id}")
-    rows = cursor.fetchall()
-    for row in rows:
-        id, username, password, service = row
-        print(f"ID: {id} - Service: {service} - Username: {username} - Password: {password}")
-        
+    entry_id = request_id("Please type the account ID that you want to retrieve: ")
+    with database:
+        cursor = database.cursor()
+        cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+        if not entry_exist(cursor):
+            print(f"There is no entry number {entry_id}")
+        else:
+            row = get_database_values(database, key="id", value=entry_id) 
+            print(row)
     display_menu(database) if replay_display_menu() else None
 
 def replay_display_menu():
