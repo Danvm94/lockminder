@@ -7,7 +7,7 @@ from prettytable import PrettyTable
 
 # Specify the path and filename of the SQLite database file
 DATABASE_PATH = 'passwords.db'
-TABLE = "credentials"   
+TABLE = "credentials" 
 
 def check_db_presence(database_path):
     """
@@ -81,7 +81,12 @@ def get_database_values(database, key=None, value=None):
 def prompt_values(database):
     column_dict = get_column_names(database)
     for key,value in column_dict.items():
-        column_dict[key] = input(f"Please type the {key}: ")     
+        while True:   
+            column_dict[key] = input(f"Please type the {key}: ")
+            if len(column_dict[key]) > 64:
+                print(f"Please use less than 64 characters for {key}")
+            else:
+                break
     new_entry = tuple(value for value in column_dict.values())
     return new_entry
 
