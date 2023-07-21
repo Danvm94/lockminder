@@ -72,11 +72,13 @@ def entry_exist(cursor):
     else:
         return True
 
-def request_id(message):
+def request_id(database, message):
     action = message.lower().split()[0]
     while True:
         print(f"LockMinder {message}")
-        entry_id = input(f"Please enter the ID of the account you'd like to {action}: ")
+        entry_id = input(f"Please enter the ID of the account you'd like to {action}, or type 0 to return to the main menu: ")
+        if entry_id == "0":
+            display_menu(database)
         try:
             entry_id = int(entry_id)
             return entry_id
@@ -117,7 +119,7 @@ def view_all_accounts(database):
 # "3": update an account
 def update_account(database, description):
     while True:
-        entry_id = request_id(description)
+        entry_id = request_id(database, description)
         with database:
             cursor = database.cursor()
             cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
