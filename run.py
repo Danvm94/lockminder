@@ -152,8 +152,8 @@ def delete_account(database, description):
     display_menu(database) if replay_display_menu() else None
     
 # "5": generate a password
-def generate_password(database):
-    print("LockMinder password generator\n")
+def generate_password(database, description):
+    print(f"LockMinder {description}\n")
     password_length = int(input("Please type the password length (min: 1 | max: 50): "))
     new_password = ""
     for char in range(password_length):
@@ -165,17 +165,16 @@ def generate_password(database):
     display_menu(database) if replay_display_menu() else None
 
 # "6": retrieve a password
-def retrieve_password(database):
-    print("LockMinder retrieve a password\n")
-    entry_id = request_id("Please type the account ID that you want to retrieve: ")
-    with database:
-        cursor = database.cursor()
-        cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
-        if not entry_exist(cursor, entry_id):
-            print(f"There is no entry number {entry_id}")
-        else:
-            row = get_database_values(database, key="id", value=entry_id) 
-            print(row)
+def retrieve_password(database, description):
+    while True:
+        entry_id = request_id(database, description)
+        with database:
+            cursor = database.cursor()
+            cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+            if check_entry(database, entry_id):
+                row = get_database_values(database, key="id", value=entry_id) 
+                print(row)
+                break
     display_menu(database) if replay_display_menu() else None
 
 def replay_display_menu():
@@ -220,8 +219,9 @@ def display_menu(database):
     while True:
         print_menu(options)
         choice = input("Select one of the options: ")
-
-        if choice in options:
+        if choice == "0":
+            options[choice][0]()
+        elif choice in options:
             os.system('clear')
             options[choice][0](database, options[choice][1])
             break
