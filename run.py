@@ -186,6 +186,20 @@ def check_entry(database, entry_id):
 
 # "1": add an account
 def add_account(database, message):
+    """
+    Add a new account to the 'credentials' table in the specified database.
+
+    This function displays a prompt message indicating the action of adding a new account
+    based on the given 'message'. It then prompts the user to enter values for the 'username',
+    'password', and 'service' fields, and adds the new entry to the 'credentials' table.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        message (str): The action message to be displayed, such as "Add an account."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     print(f"LockMinder {message}\n")
     new_entry = prompt_values(database)
     with database: 
@@ -199,6 +213,20 @@ def add_account(database, message):
 
 # "2": view all accounts
 def view_all_accounts(database, description):
+    """
+    View all accounts stored in the 'credentials' table.
+
+    This function displays a prompt message indicating the action of viewing all accounts
+    based on the given 'description'. It fetches all the records from the 'credentials' table
+    in the specified database using the 'get_database_values' function and prints them to the console.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        description (str): The action message to be displayed, such as "View all accounts."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     print(f"LockMinder {description}\n")
     rows = get_database_values(database)
     print(rows)
@@ -206,6 +234,22 @@ def view_all_accounts(database, description):
 
 # "3": update an account
 def update_account(database, description):
+    """
+    Update an existing account in the 'credentials' table.
+
+    This function displays a prompt message indicating the action of update an account
+    based on the given 'description'. It prompts the user to enter the ID of the account to update,
+    validates its existence using the 'check_entry' function, and displays the current account details.
+    The user is then asked to provide new values for the 'username', 'password', and 'service' fields,
+    and the corresponding entry in the 'credentials' table is updated with the new data.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        description (str): The action message to be displayed, such as "Update an account."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     while True:
         entry_id = request_id(database, description)
         with database:
@@ -224,6 +268,22 @@ def update_account(database, description):
 
 # "4": delete an account
 def delete_account(database, description):
+    """
+    Delete an existing account from the 'credentials' table.
+
+    This function displays a message indicating the action of delete an account
+    on the given 'description'. It prompts the user to enter the ID of the account to delete,
+    validates its existence using the 'check_entry' function, and displays the details of the account.
+    The user is then asked to confirm the deletion, and if confirmed, the corresponding entry in the
+    'credentials' table is removed.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        description (str): The action message to be displayed, such as "Delete an account."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     while True:
         entry_id = request_id(database, description)
         with database:
@@ -239,6 +299,20 @@ def delete_account(database, description):
     
 # "5": generate a password
 def generate_password(database, description):
+    """
+    Generate a random password and display it to the user.
+
+    This function generates a random password of the specified length and displays it
+    to the user based on the given 'description'. The user is prompted to enter the desired
+    password length, and the generated password is then shown on the screen.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        description (str): The action message to be displayed, such as "Generate a password."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     print(f"LockMinder {description}\n")
     password_length = int(input("Please type the password length (min: 1 | max: 50): "))
     new_password = ""
@@ -252,6 +326,20 @@ def generate_password(database, description):
 
 # "6": retrieve a password
 def retrieve_password(database, description):
+    """
+    Retrieve the password for an existing account from the 'credentials' table.
+
+    This function allows the user to retrieve the password for an existing account from the 'credentials'.
+    It prompts the user to enter the ID of the account to retrieve the password for, validates its existence using the 'check_entry'
+    function, and displays the account details, including the password.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        description (str): The action message to be displayed, such as "Retrieve a password."
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     while True:
         entry_id = request_id(database, description)
         with database:
@@ -283,15 +371,20 @@ def replay_display_menu():
             return False
 
 def display_menu(database):
-    """Displays the LockMinder menu and handles user input for various options.
+    """
+    Display the main menu of the LockMinder application.
 
-    Parameters:
-        database (object): The database object or connection needed for the menu functions.
+    This function presents a menu of options to the user for managing accounts in the 'credentials' table.
+    The user is repeatedly prompted to select an option until they choose a valid option.
+    The available options are represented as a dictionary with keys as the menu choices and values as a list
+    containing the corresponding function to execute and a description of the action for each option.
+    The user's input is validated, and the selected function is executed based on the user's choice.
 
-    The function displays a menu with options and descriptions using PrettyTable.
-    It continuously prompts the user to select an option until a valid choice is made.
-    Once a valid option is chosen, the corresponding function for that option is executed.
-    The user can exit the menu by selecting '0', which calls the 'exit' function.
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+
+    Returns:
+        None: This function does not return any value explicitly.
     """
     options = {
             "1": [add_account, "Add an account"],
@@ -316,17 +409,20 @@ def display_menu(database):
             print("Please select a valid option.")
 
 def print_menu(options):
-    """Prints the LockMinder menu with options and their descriptions.
+    """
+    Print the main menu of the LockMinder application.
 
-    Parameters:
-        options (dict): A dictionary containing menu options and their descriptions.
-                        The keys are option numbers (e.g., "1", "2", etc.).
-                        The values are lists with two elements:
-                            1. The function to call for the option.
-                            2. The description of the option.
+    This function receives a dictionary of menu options with keys as option numbers and values as
+    a list containing the corresponding function and a description of the action for each option.
+    The menu is displayed using the 'PrettyTable' library to provide a structured and readable format.
+    Each option number and its associated description are displayed in a table format.
 
-    The function creates a PrettyTable and populates it with the option numbers and descriptions.
-    It then prints the table to display the LockMinder menu with all available options.
+    Args:
+        options (dict): A dictionary containing menu options with keys as option numbers and values as lists
+        with the corresponding function and description for each option.
+
+    Returns:
+        None: This function does not return any value explicitly.
     """
     print("LockMinder Menu:")
     menu = PrettyTable(["OPTION", "DESCRIPTION"])
@@ -335,6 +431,20 @@ def print_menu(options):
     print(menu)
 
 def main():
+    """
+    Entry point for the LockMinder application.
+
+    This function serves as the starting point of the LockMinder application.
+    It displays a welcome message and initializes the database by calling the 'create_db' function.
+    The main menu is then displayed by calling the 'display_menu' function, allowing the user to
+    interact with the application and manage accounts.
+
+    Args:
+        None
+
+    Returns:
+        None: This function does not return any value explicitly.
+    """
     print("Welcome to LockMinder\n")
     database = create_db()
     display_menu(database)
