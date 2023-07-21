@@ -66,8 +66,9 @@ def prompt_values(database):
     new_entry = tuple(value for value in column_dict.values())
     return new_entry
 
-def entry_exist(cursor):
+def entry_exist(cursor, entry_id):
     if cursor.fetchone() is None:
+        print(f"There is no entry number {entry_id}")
         return False
     else:
         return True
@@ -90,8 +91,8 @@ def request_id(database, message):
 def check_entry(database, entry_id):
     cursor = database.cursor()
     cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
-    if not entry_exist(cursor):
-        os.system('clear')
+    if not entry_exist(cursor, entry_id):
+        os.system("clear")
         print(f"There is no entry number {entry_id}")
         return False
     else:
@@ -136,17 +137,18 @@ def update_account(database, description):
     display_menu(database) if replay_display_menu() else None
 
 # "4": delete an account
-def delete_account(database):
-    print("LockMinder update an account\n")
-    entry_id = request_id("Please type the account ID that you want to delete: ")
-    with database:
-        cursor = database.cursor()
-        cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
-        if not entry_exist(cursor):
-            print(f"There is no entry number {entry_id}")
-        else:
-            
-            cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};") 
+def delete_account(database, description):
+    while True:
+        entry_id = request_id(database, description)
+        with database:
+            cursor = database.cursor()
+            cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+            if check_entry(database, entry_id):
+                row = get_database_values(database, key="id", value=entry_id)
+                print(row)            
+                cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};")
+                print(f"The entry number {entry_id} is now deleted.") 
+                break
     display_menu(database) if replay_display_menu() else None
     
 # "5": generate a password
@@ -169,7 +171,7 @@ def retrieve_password(database):
     with database:
         cursor = database.cursor()
         cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
-        if not entry_exist(cursor):
+        if not entry_exist(cursor, entry_id):
             print(f"There is no entry number {entry_id}")
         else:
             row = get_database_values(database, key="id", value=entry_id) 
@@ -190,6 +192,7 @@ def replay_display_menu():
     while True:
         repeat = input("Would you like to go back to the main menu? (Y / N): ").upper()
         if repeat == "Y":
+            os.system("clear")
             return True
         elif repeat == "N":
             return False
