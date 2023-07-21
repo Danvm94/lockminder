@@ -1,28 +1,17 @@
-# sqlite3 used to store the username and passwords information
-import sqlite3
-# os library to check if file exists
-import os
-from random import randrange
-from prettytable import PrettyTable
+# Import the required modules
+import sqlite3  # Used to create and manage the database for storing usernames and passwords
+import os       # Used to clear the therminal
+from random import randrange  # Used to generate random passwords
+from prettytable import PrettyTable  # Used to create a visually appealing table for displaying results
 
-# Specify the path and filename of the SQLite database file
-DATABASE_PATH = 'passwords.db'
-TABLE = "credentials" 
-
-def check_db_presence(database_path):
-    """
-    Check the presence of a database file and create it if it doesn't exist.
-    Args:
-        database (str): The path and filename of the database file.
-    Returns:
-        None
-    """
-    print(f"Checking for: {database_path} presence.\n")
-    if not os.path.exists(database_path):
-        print(f"There is no database file at the path provided: {database_path}.\n")
-        create_db(database_path)
-    else:
-        print(f"Database presence confirmed: {database_path}.\n")
+# Table schema for storing username and password information.
+TABLE = "credentials"
+# The table will have four columns: id, username, password, and service.
+DATABASE = """CREATE TABLE IF NOT EXISTS {TABLE}
+                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  username TEXT NOT NULL,
+                  password TEXT NOT NULL,
+                  service TEXT NOT NULL);"""
 
 def create_db():
     """
@@ -35,11 +24,7 @@ def create_db():
     print(f"Creating database on computer's memory.\n")
     connector = sqlite3.connect(":memory:")
     cursor = connector.cursor()
-    cursor.execute(f"""CREATE TABLE IF NOT EXISTS {TABLE}
-                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  username TEXT NOT NULL,
-                  password TEXT NOT NULL,
-                  service TEXT NOT NULL);""")
+    cursor.execute(DATABASE)
     return connector
 
 def get_column_names(database):
