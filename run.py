@@ -7,7 +7,7 @@ from prettytable import PrettyTable  # Used to create a visually appealing table
 # Table schema for storing username and password information.
 TABLE = "credentials"
 # The table will have four columns: id, username, password, and service.
-DATABASE = """CREATE TABLE IF NOT EXISTS {TABLE}
+DATABASE = f"""CREATE TABLE IF NOT EXISTS {TABLE}
                   (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   username TEXT NOT NULL,
                   password TEXT NOT NULL,
@@ -15,11 +15,14 @@ DATABASE = """CREATE TABLE IF NOT EXISTS {TABLE}
 
 def create_db():
     """
-    Create a new SQLite database with a 'credentials' table.
-    Args:
-        database (str): The path and filename of the database file.
+    Creates an SQLite database in memory and sets up the required table.
+
+    This function establishes a connection to an in-memory SQLite database,
+    creates a table 'credentials' with columns 'id', 'username', 'password', and 'service',
+    and returns the connection to the newly created database.
+
     Returns:
-        None
+        sqlite3.connect: A connection to the in-memory SQLite database.
     """
     print(f"Creating database on computer's memory.\n")
     connector = sqlite3.connect(":memory:")
@@ -70,13 +73,26 @@ def entry_exist(cursor):
         return True
 
 def request_id(message):
+    action = message.lower().split()[0]
     while True:
-        entry_id = input(message)
+        print(f"LockMinder {message}")
+        entry_id = input(f"Please enter the ID of the account you'd like to {action}: ")
         try:
             entry_id = int(entry_id)
             return entry_id
         except ValueError:
+            os.system('clear')
             print("Invalid id. Please enter an integer number.")
+
+def check_entry(database, entry_id):
+    cursor = database.cursor()
+    cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
+    if not entry_exist(cursor):
+        os.system('clear')
+        print(f"There is no entry number {entry_id}")
+        return False
+    else:
+        return True
 
 # "1": add an account
 def add_account(database):
@@ -99,16 +115,13 @@ def view_all_accounts(database):
     display_menu(database) if replay_display_menu() else None
 
 # "3": update an account
-def update_account(database):
+def update_account(database, description):
     while True:
-        print("LockMinder update an account\n")
-        entry_id = request_id("Please type the account ID that you want to update: ")
+        entry_id = request_id(description)
         with database:
             cursor = database.cursor()
             cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
-            if not entry_exist(cursor):
-                print(f"There is no entry number {entry_id}")
-            else:
+            if check_entry(database, entry_id):
                 new_entry = prompt_values(database)
                 cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = {entry_id}", new_entry)
                 row = get_database_values(database, key="id", value=entry_id)
@@ -127,6 +140,7 @@ def delete_account(database):
         if not entry_exist(cursor):
             print(f"There is no entry number {entry_id}")
         else:
+            
             cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};") 
     display_menu(database) if replay_display_menu() else None
     
@@ -186,23 +200,22 @@ def display_menu(database):
     Once a valid option is chosen, the corresponding function for that option is executed.
     The user can exit the menu by selecting '0', which calls the 'exit' function.
     """
-    while True:
-        options = {
-            "1": [add_account, "Add an account."],
-            "2": [view_all_accounts, "View all accounts."],
-            "3": [update_account, "Update an account."],
-            "4": [delete_account, "Delete an account."],
-            "5": [generate_password, "Generate a password."],
-            "6": [retrieve_password, "Retrieve a password."],
+    options = {
+            "1": [add_account, "Add an account"],
+            "2": [view_all_accounts, "View all accounts"],
+            "3": [update_account, "Update an account"],
+            "4": [delete_account, "Delete an account"],
+            "5": [generate_password, "Generate a password"],
+            "6": [retrieve_password, "Retrieve a password"],
             "0": [exit, "Exit."]
         }
-
+    while True:
         print_menu(options)
         choice = input("Select one of the options: ")
 
         if choice in options:
             os.system('clear')
-            options[choice][0](database)
+            options[choice][0](database, options[choice][1])
             break
         else:
             os.system('clear')
