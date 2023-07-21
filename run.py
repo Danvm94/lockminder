@@ -31,6 +31,19 @@ def create_db():
     return connector
 
 def get_column_names(database):
+    """
+    Retrieve column names of the 'credentials' table from the specified database.
+
+    This function queries the SQLite database to fetch the column names of the 'credentials' table.
+    It returns a dictionary with the column names as keys and empty strings as values.
+    The 'ID' column is excluded from the returned dictionary.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+
+    Returns:
+        dict: A dictionary containing column names (excluding 'ID') as keys with empty strings as values.
+    """
     column_dict = {}
     with database:
         cursor = database.cursor()
@@ -41,6 +54,21 @@ def get_column_names(database):
     return column_dict
 
 def get_database_values(database, key=None, value=None):
+    """
+    Retrieve data from the 'credentials' table in the specified database.
+
+    This function queries the SQLite database to fetch data from the 'credentials' table.
+    If both 'key' and 'value' are provided, it filters the results based on the given key-value pair.
+    Otherwise, it fetches all data from the table.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        key (str, optional): The column name to filter the results. Defaults to None.
+        value (str, optional): The value to match in the specified column. Defaults to None.
+
+    Returns:
+        PrettyTable: A PrettyTable object containing the fetched data as rows and column names as headers.
+    """
     with database: 
         cursor = database.cursor()
         if key and value:
@@ -55,6 +83,20 @@ def get_database_values(database, key=None, value=None):
         return table
         
 def prompt_values(database):
+    """
+    Prompt the user to enter values for each column in the 'credentials' table.
+
+    This function interacts with the user to gather values for each column in the 'credentials' table.
+    It fetches the column names and initializes a dictionary with the column names as keys and empty strings as values.
+    The user is prompted to enter data for each column, and the input is validated to ensure it does not exceed 64 characters.
+    Once all values are obtained, a tuple containing the user-provided values is returned.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+
+    Returns:
+        tuple: A tuple containing the user-provided values for each column in the 'credentials' table.
+    """
     column_dict = get_column_names(database)
     for key,value in column_dict.items():
         while True:   
@@ -67,6 +109,21 @@ def prompt_values(database):
     return new_entry
 
 def entry_exist(cursor, entry_id):
+    """
+    Check if an entry with the given ID exists in the database.
+
+    This function checks if an entry with the specified ID exists in the database
+    by using the provided cursor to fetch the corresponding data. If the entry is not found,
+    it prints a message indicating that it does not exist and returns False. Otherwise, it
+    returns True.
+
+    Args:
+        cursor (sqlite3.Cursor): The cursor to execute the database query.
+        entry_id (int): The ID of the entry to check for existence.
+
+    Returns:
+        bool: True if the entry with the given ID exists, False otherwise.
+    """
     if cursor.fetchone() is None:
         print(f"There is no entry number {entry_id}")
         return False
@@ -74,6 +131,21 @@ def entry_exist(cursor, entry_id):
         return True
 
 def request_id(database, message):
+    """
+    Request the user to input the ID of the account.
+
+    This function displays a prompt to the user with the given 'message', which indicates
+    the action they should perform (e.g., "Add an account," "Update an account," etc.).
+    The user is asked to enter the ID of the account they want to perform the action on,
+    or they can type '0' to return to the main menu.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        message (str): The action message to be displayed, such as "Add an account."
+
+    Returns:
+        int: The ID of the account entered by the user, or 0 to return to the main menu.
+    """
     action = message.lower().split()[0]
     while True:
         print(f"LockMinder {message}\n")
@@ -89,6 +161,20 @@ def request_id(database, message):
             print("Invalid id. Please enter an integer number.")
 
 def check_entry(database, entry_id):
+    """
+    Check if an entry with the given ID exists in the database.
+
+    This function checks if an entry with the specified ID exists in the 'credentials' table
+    of the specified database by executing an SQL query with the given 'entry_id'. If the entry
+    does not exist, it prints a message and returns False. Otherwise, it returns True.
+
+    Args:
+        database (sqlite3.Connection): A connection to the SQLite database.
+        entry_id (int): The ID of the entry to check for existence.
+
+    Returns:
+        bool: True if the entry with the given ID exists, False otherwise.
+    """
     cursor = database.cursor()
     cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
     if not entry_exist(cursor, entry_id):
