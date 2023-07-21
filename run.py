@@ -75,9 +75,10 @@ def entry_exist(cursor):
 def request_id(database, message):
     action = message.lower().split()[0]
     while True:
-        print(f"LockMinder {message}")
+        print(f"LockMinder {message}\n")
         entry_id = input(f"Please enter the ID of the account you'd like to {action}, or type 0 to return to the main menu: ")
         if entry_id == "0":
+            os.system('clear')
             display_menu(database)
         try:
             entry_id = int(entry_id)
@@ -97,8 +98,8 @@ def check_entry(database, entry_id):
         return True
 
 # "1": add an account
-def add_account(database):
-    print("LockMinder Add Account\n")
+def add_account(database, message):
+    print(f"LockMinder {message}\n")
     new_entry = prompt_values(database)
     with database: 
         cursor = database.cursor()
@@ -110,8 +111,8 @@ def add_account(database):
     display_menu(database) if replay_display_menu() else None
 
 # "2": view all accounts
-def view_all_accounts(database):
-    print("LockMinder view all accounts\n")
+def view_all_accounts(database, description):
+    print(f"LockMinder {description}\n")
     rows = get_database_values(database)
     print(rows)
     display_menu(database) if replay_display_menu() else None
@@ -124,6 +125,8 @@ def update_account(database, description):
             cursor = database.cursor()
             cursor.execute(f"SELECT * FROM {TABLE} WHERE id = {entry_id}")
             if check_entry(database, entry_id):
+                row = get_database_values(database, key="id", value=entry_id)
+                print(row)
                 new_entry = prompt_values(database)
                 cursor.execute(f"UPDATE {TABLE} SET username = ?, password = ?, service = ? WHERE id = {entry_id}", new_entry)
                 row = get_database_values(database, key="id", value=entry_id)
