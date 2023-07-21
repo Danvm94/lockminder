@@ -13,6 +13,15 @@ DATABASE = f"""CREATE TABLE IF NOT EXISTS {TABLE}
                   password TEXT NOT NULL,
                   service TEXT NOT NULL);"""
 
+WELCOME = """
+  _                _    __  __ _           _           
+ | |              | |  |  \/  (_)         | |          
+ | |     ___   ___| | _| \  / |_ _ __   __| | ___ _ __ 
+ | |    / _ \ / __| |/ / |\/| | | '_ \ / _` |/ _ \ '__|
+ | |___| (_) | (__|   <| |  | | | | | | (_| |  __/ |   
+ |______\___/ \___|_|\_\_|  |_|_|_| |_|\__,_|\___|_|   
+ """
+
 def create_db():
     """
     Creates an SQLite database in memory and sets up the required table.
@@ -445,7 +454,7 @@ def main():
     Returns:
         None: This function does not return any value explicitly.
     """
-    print("Welcome to LockMinder\n")
+    print(WELCOME)
     database = create_db()
     display_menu(database)
 
