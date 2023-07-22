@@ -173,3 +173,69 @@ Thanks to the template added in the front-end files, users can now interact with
 <p align="center">
   <img src="./readme/data-validators.gif" alt="Data Validators">
 </p>
+
+### Potential Enhancements
+- While the primary objective of this project is to demonstrate Python knowledge through a Heroku implementation, there are several potential enhancements and additional features that could be implemented in the future to further improve the password manager. Here are some ideas:
+
+    - User Authentication: Introduce master authentication mechanisms, with username and password authentication, to provide a secure login process and protect access to the password manager.
+
+    - Encryption: Implement encryption techniques to securely store passwords and sensitive data in the database, ensuring an added layer of protection.
+
+    - Account Categories: Allow users to categorize their accounts (e.g., personal, work, social media) for better organization and easy navigation.
+
+    - Account Expiry Reminder: Include a feature to set expiration dates for accounts and send reminders to users to update their passwords periodically.
+
+    - Export/Import Functionality: Enable users to export their account data or import credentials from other password managers.
+
+    - Two-Factor Authentication (2FA): Support two-factor authentication to enhance the security of user accounts.
+
+    - GUI Interface: Create a graphical user interface (GUI) for the password manager, offering users a more interactive and visually appealing experience.
+- - -
+# Deployment
+- The code for this project was written using Visual Studio, providing a powerful and user-friendly integrated development environment. To showcase the application's functionality, it has been deployed from GitHub to Heroku. The deployment process involves version releasing, ensuring smooth updates and enhancements to the application. This combination of tools and deployment strategies allows for efficient development and seamless delivery of the password manager to end-users.
+
+## Heroku Deployment
+Deployments steps are as follows, after account setup:
+* Select New in the top-right corner of your Heroku Dashboard, and select Create new app from the dropdown menu.
+* Add a unique app name and then choose a region closest to you (EU or USA).
+* Click on Create App.
+
+In order for the project to run on Heroku, Heroku is needed to install the dependencies. 
+* In the terminal write the following commando `pip3 freeze > requirements.txt` to create a list of requirements. The list of dependencies will go into `requirements.txt` file.
+* Further down, to support dependencies, select Add Buildpack.
+* The order of the buildpacks is important, select Python first, then click "Save changes". Then add Node.js second and click "Save changes" again. If they are not in this order, you can drag them to rearrange them.
+* Go to "Deploy" and select "GitHub" in "Deployment method".
+* To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' when it shows below
+* Choose the branch you want to buid your app from.
+* If prefered, click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository.
+* Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
+
+[GitHub repository](https://github.com/Danvm94/lockminder) 
+
+## Run locally
+
+**Making a Local Clone**
+1. Login or Sign Up to GitHub.
+2. Open the project [repository](https://github.com/Danvm94/lockminder).
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in the code editor of your choice and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 
+6. Press enter.
+
+
+**Forking the GitHub Repository**
+To fork this website to either propose changes or to use as an idea for another website, follow these steps:
+1. Login or Sign Up to GitHub.
+2. Open the project [repository](https://github.com/Danvm94/lockminder).
+3. Click the Fork button in the top right corner.
+4. Copy of the repository will be in your own GitHub account.
+
+To deploy from GitHub, follow these steps:
+
+1. Log into your GitHub repository, create a GitHub account if necessary.
+2. Click 'Settings' in the main Repository menu.
+3. Click 'Pages' from the left-hand side navigation menu.
+4. Within the Source section, click the "Branch" button and change from 'None' to 'Main'.
+5. The page should automatically refresh with a url displayed.
+6. Test the link by clicking on the url.
+
