@@ -10,6 +10,9 @@ Experience LockMinder in action by visiting our live demo deployed on Heroku. Si
 - - - 
 # Contents
 * [Technologies Used](#technologies-used)
+    * [Language](#language)
+    * [Libraries](#libraries)
+    * [Frameworks & Tools](#frameworks--tools)
 * [User Experience](#user-experience-ux)
 * [Design](#design)
   * [Flowchart](#flowchart)
@@ -62,3 +65,22 @@ Python was the chosen language for this project.
 
 For this project a [Code Institute template](https://github.com/Code-Institute-Org/python-essentials-template), was utilized. It provided all the necessary files to run the mock terminal in the browser, facilitating the development process.
 - - - 
+# User Experience (UX)
+
+## The ideal users for this website is:
+* Individuals who are looking for a secure and user-friendly password manager to store and manage their account credentials.
+
+* Users who require a reliable and convenient method to generate strong and randomized passwords for various online services.
+
+## User stories:
+* As a user, I want to create an account in the password manager to securely store my login credentials for various online services.
+
+* As a user, I want the password manager to generate strong and unique passwords for accounts to enhance security.
+
+* As a user, I want the ability to view and manage all my stored account credentials in a well-organized and user-friendly interface.
+
+* As a user, I want the option to update or change passwords for my accounts when needed, ensuring my information remains up-to-date.
+
+* As a user, I want the password manager to provide a simple and efficient way to delete accounts that I no longer need.
+
+## How to use:
