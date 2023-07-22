@@ -238,4 +238,23 @@ To deploy from GitHub, follow these steps:
 4. Within the Source section, click the "Branch" button and change from 'None' to 'Main'.
 5. The page should automatically refresh with a url displayed.
 6. Test the link by clicking on the url.
+---
+# Testing 
+Thorough testing was conducted to ensure all aspects of the application work as intended, providing users with an easy and straightforward experience to achieve their goals.
+
+During the development process, the terminal was extensively utilized to identify and resolve any issues. Various scenarios with correct and incorrect user inputs were tested to ensure the application handles different situations gracefully and provides appropriate feedback to users.
+
+By rigorously testing the application, we can confidently deliver a reliable and robust password manager that meets the needs and expectations of users.
+
+## Functionality
+### Manual:
+- Add an Account
+
+| Username | Password      | Service | Result | Pass/Fail |
+|---------|----------------|---------|--------|-----------|
+| Danilo  | m208C!!g0wWk   | Google  | Your account is now added to the credentials list. | Pass      |
+| test@email.com  | 8d*16z64BgQN   | E-Mail  | Your account is now added to the credentials list. | Pass      |
+| FlamingSwordOfDestiny WillConquerAllChallen gesAndTriumphForever  |    |   | Please use less than 64 characters for username | Pass      |
+| Arnold  |  FlamingSwordOfDestiny WillConquerAllChallen gesAndTriumphForever  |   | Please use less than 64 characters for password | Pass      |
+| Joseph  |  43%1SwDCBg8%  |  FlamingSwordOfDestiny WillConquerAllChallen gesAndTriumphForever  | Please use less than 64 characters for password | Pass      |
 
