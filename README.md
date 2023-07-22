@@ -249,7 +249,7 @@ By rigorously testing the application, we can confidently deliver a reliable and
 ## Functionality
 ### Manual Testing:
 <details>
-  <summary>Add an Account</summary>
+  <summary>Add an account</summary>
 
 | Username | Password      | Service | Result | Pass/Fail |
 |---------|----------------|---------|--------|-----------|
@@ -261,7 +261,7 @@ By rigorously testing the application, we can confidently deliver a reliable and
 
 </details>
 <details>
-  <summary>View all Accounts</summary>
+  <summary>View all accounts</summary>
 
 | Username Returned | Password Returned | Service Returned | Pass/Fail |
 |-------------------|------------------|------------------|-----------|
@@ -280,5 +280,32 @@ By rigorously testing the application, we can confidently deliver a reliable and
 | 3       |          |    |          | There is no entry number 3 | Pass      |
 | A       |          |    |          | Invalid id. Please enter an integer number. | Pass      |
 | 0       |          |    |          | LockMinder Menu | Pass      |
+
+</details>
+<details>
+  <summary>Delete an account</summary>
+
+| ID typed | Return Result                            | Pass/Fail |
+|----------|-----------------------------------------|-----------|
+| 1        | The entry number 1 is now deleted       | Pass      |
+| 2        | The entry number 2 is now deleted       | Pass      |
+| 3        | There is no entry number 3              | Pass      |
+| A        | Invalid id. Please enter an integer number | Pass    |
+| 0        | LockMinder Menu                         | Pass      |
+
+
+</details>
+
+<details>
+  <summary>Generate a password</summary>
+
+| Password Length typed | Return Result                            | Pass/Fail |
+|----------|-----------------------------------------|-----------|
+| 1        | Ir!m:QIsuZ       | Pass      |
+| 50        | s0!T,xzdo8jDd$;'\?h;edr2sp4V+brjB`FK-X5@2GD#x\8:/F       | Pass      |
+| 51        | There is no entry number 3              | Pass      |
+| A        | Invalid id. Please enter an integer number | Pass    |
+| 0        | LockMinder Menu                         | Pass      |
+
 
 </details>

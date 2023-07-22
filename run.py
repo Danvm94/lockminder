@@ -326,15 +326,25 @@ def generate_password(database, description):
     Returns:
         None: This function does not return any value explicitly.
     """
-    print(f"LockMinder {description}\n")
-    password_length = int(input("Please type the password length (min: 1 | max: 50): "))
-    new_password = ""
-    for char in range(password_length):
-        new_dec_char = randrange(33, 126)
-        new_char = chr(new_dec_char)
-        new_password += new_char
-    print("Follow the new password below:\n")
-    print(new_password)
+    while True:
+        print(f"LockMinder {description}\n")
+        try:
+            password_length = int(input("Please type the password length (min: 1 | max: 50): "))
+            if password_length < 1 or password_length > 50:
+                os.system("clear")
+                print("Invalid input. Please enter an integer number from 1 to 50.")
+            else:
+                new_password = ""
+                for char in range(password_length):
+                    new_dec_char = randrange(33, 126)
+                    new_char = chr(new_dec_char)
+                    new_password += new_char
+                print("Follow the new password below:\n")
+                print(new_password)
+                break
+        except ValueError:
+            os.system("clear")
+            print("Invalid input. Please enter an integer number.")
     display_menu(database) if replay_display_menu() else None
 
 # "6": retrieve a password
