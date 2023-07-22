@@ -1,9 +1,14 @@
 # LockMinder
-![LockMinder](./readme/initial.png)
+<p align="center">
+  <img src="./readme/initial.png" alt="Initial">
+</p>
 
 LockMinder is a user-friendly password manager software that helps you securely store and manage your account credentials. With an intuitive menu-based interface, you can easily add, view, update, and delete accounts in the encrypted SQLite database. LockMinder also offers a password generation tool for creating strong and randomized passwords. Simplify your digital life and keep your passwords safe with LockMinder.
 
-Note: For security purposes on demonstration, LockMinder currently operates with an in-memory database, ensuring that no data is saved outside the application. Please be aware that any added account information will not persist beyond the current session.
+## Note
+For security purposes on demonstration, LockMinder currently operates with an in-memory database, ensuring that no data is saved outside the application. Please be aware that any added account information will not persist beyond the current session.
+
+As this software is currently running in a cloud environment, it is crucial not to enter real user passwords, accounts, or any sensitive information. The password manager is designed for demonstration purposes and should not be used with actual personal data.
 
 ## Demo
 Experience LockMinder in action by visiting our live demo deployed on Heroku. Simply access the following URL to explore the software's functionality: [LockMinder](https://lockminder-4bcc151d4d1c.herokuapp.com/)
@@ -84,3 +89,87 @@ For this project a [Code Institute template](https://github.com/Code-Institute-O
 * As a user, I want the password manager to provide a simple and efficient way to delete accounts that I no longer need.
 
 ## How to use:
+* Start the Software: When you launch the software, you will be greeted with an ASCII art image and the main menu.
+
+* Main Menu Options: The main menu will present you with the following options:
+
+    * Add an Account: Choose this option to add a new account to the password manager. You will be asked to provide the username, password, and service details.
+
+    * View All Accounts: Select this option to see a list of all the accounts stored in the password manager. The accounts will be displayed in a clear and organized manner.
+
+    * Update an Account: If you need to modify the credentials of an existing account, select this option. You will be prompted to enter the account ID, and then you can update the username, password, or service.
+    
+    * Delete an Account: To remove an account from the password manager, choose this option. Enter the account ID, and the account will be deleted from the list.
+
+    * Generate a Password: This option allows you to generate a strong and secure password for your accounts. Specify the desired length, and a random password will be created for you.
+    
+    * Retrieve a Password: Select this option to retrieve the password of a specific account. You will be asked to provide the account ID, and the password will be displayed on the screen.
+    
+    * Exit: To close the software, choose this option. Your data will be saved securely.
+    
+* Select an Option: To perform an action, type the corresponding number of the option you want to use. For example, if you want to add a new account, type "1" and press Enter.
+
+* After selecting an option from the main menu, the user will be prompted or presented with clear instructions on how to proceed with the chosen command. This ensures a seamless and user-friendly experience, guiding users through each action in the password manager effectively.
+
+- - -
+# Design
+Thanks to the template added in the front-end files, users can now interact with this project through a mock terminal displayed on a web page. This interactive terminal provides a user-friendly interface, mimicking the functionality of a real terminal, without requiring any changes to be made in other files. Users can easily navigate and interact with the project's features, making it convenient and accessible for all.
+
+## Existing Features
+
+### Introduction
+- Upon running the program, the user is greeted with the LockMinder logo message displayed on the screen. The logo adds a personalized touch to the user experience, enhancing the initial interaction with the password manager.
+![LockMinder Logo](./readme/logo.png)
+
+### Menu
+- The menu in this password manager software serves as the main user interface, providing a list of options for interacting with the application. Each option is represented by a number, allowing users to easily select their desired action.
+<p align="center">
+  <img src="./readme/menu.png" alt="Menu">
+</p>
+
+### Add an Account
+- The "Add an Account" function allows users to add a new account entry to the credentials DB. When users choose this option from the main menu, they are prompted to provide essential details for the new account, such as the username, password, and service.
+<p align="center">
+  <img src="./readme/add-an-account.gif" alt="Add an Account">
+</p>
+
+### View All Accounts
+- The "View All Accounts" function displays a comprehensive list of all the accounts currently stored in the credentials database. When users select this option from the main menu, the system presents a well-organized table containing the account details, including usernames, passwords, and associated services. This user-friendly display allows users to review and manage their account information efficiently. The function provides quick access to all stored accounts, making it convenient to keep track of login credentials for various services and platforms.
+<p align="center">
+  <img src="./readme/view-all-accounts.png" alt="View All Accounts">
+</p>
+
+### Update an Account
+- The "Update an Account" function enables users to modify the credentials of an existing account in the credentials database. Upon selecting this option from the main menu, users are prompted to enter the account ID for the account they wish to update. Once the ID is provided, users can proceed to update the username, password and service associated with the selected account.
+<p align="center">
+  <img src="./readme/update-an-account.gif" alt="Update an Account">
+</p>
+
+### Delete an Account
+- The "Delete an Account" function allows users to remove an account entry from the credentials database. When users select this option from the main menu, they are prompted to enter the account ID of the account they wish to delete. After providing the account ID, the function proceeds to permanently delete the selected account and its associated details from the password manager.
+<p align="center">
+  <img src="./readme/delete-an-account.gif" alt="Delete an Account">
+</p>
+
+### Generate a Password
+- The "Generate a Password" function allows users to create strong and secure passwords for their accounts. Upon selecting this option from the main menu, users are prompted to specify the desired password length. Once the length is provided, the function generates a random password consisting of a mix of characters, including uppercase letters, lowercase letters, digits, and special symbols.
+<p align="center">
+  <img src="./readme/generate-a-password.gif" alt="Generate a Password">
+</p>
+
+
+### Retrieve a Password
+- The "Retrieve a Password" function enables users to access the password and other account details of a specific account stored in the credentials database. When users select this option from the main menu, they are prompted to enter the account ID of the desired account. Once the ID is provided, the function displays the corresponding account's information, including the associated service, username, and password, on the screen, allowing users to retrieve their account credentials with ease.
+<p align="center">
+  <img src="./readme/retrieve-a-password.gif" alt="Generate a Password">
+</p>
+
+### Exit
+- The "Exit" option allows users to gracefully terminate the password manager software. When users select this option from the main menu, the program concludes its execution, and the software closes.
+
+
+### Data Validators
+- The data validators in this password manager software play a crucial role in ensuring the accuracy and integrity of user inputs. These validators are utilized in various functions, such as the "Retrieve a Password," "Update an Account," and others, to validate user-provided data before proceeding with the requested actions.
+<p align="center">
+  <img src="./readme/data-validators.gif" alt="Data Validators">
+</p>
