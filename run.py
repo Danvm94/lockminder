@@ -35,9 +35,9 @@ def create_db():
     """
     print(f"Creating database on computer's memory.\n")
     print("""Note: As this software is currently running in a cloud environment, 
-    it is crucial not to enter real user passwords, accounts, or any sensitive information. 
-    The password manager is designed for demonstration purposes and should not be used 
-    with actual personal data.\n""")
+it is crucial not to enter real user passwords, accounts, or any sensitive information. 
+The password manager is designed for demonstration purposes and should not be used 
+with actual personal data.\n""")
     connector = sqlite3.connect(":memory:")
     cursor = connector.cursor()
     cursor.execute(DATABASE)

@@ -247,8 +247,9 @@ During the development process, the terminal was extensively utilized to identif
 By rigorously testing the application, we can confidently deliver a reliable and robust password manager that meets the needs and expectations of users.
 
 ## Functionality
-### Manual:
-- Add an Account
+### Manual Testing:
+<details>
+  <summary>Add an Account</summary>
 
 | Username | Password      | Service | Result | Pass/Fail |
 |---------|----------------|---------|--------|-----------|
@@ -258,3 +259,26 @@ By rigorously testing the application, we can confidently deliver a reliable and
 | Arnold  |  FlamingSwordOfDestiny WillConquerAllChallen gesAndTriumphForever  |   | Please use less than 64 characters for password | Pass      |
 | Joseph  |  43%1SwDCBg8%  |  FlamingSwordOfDestiny WillConquerAllChallen gesAndTriumphForever  | Please use less than 64 characters for password | Pass      |
 
+</details>
+<details>
+  <summary>View all Accounts</summary>
+
+| Username Returned | Password Returned | Service Returned | Pass/Fail |
+|-------------------|------------------|------------------|-----------|
+| Danilo            | m208C!!g0wWk     | Google           | Pass      |
+| test@email.com    | 8d*16z64BgQN     | E-Mail           | Pass      |
+
+
+</details>
+<details>
+  <summary>Update an account</summary>
+
+| ID Typed | Username Typed | Password Typed | Service Typed | Returned                                               | Pass/Fail |
+|---------|----------------|----------------|---------------|--------------------------------------------------------|-----------|
+| 1       | Daniel         | 8d*16z64BgQN   | Panda         | Your account is now updated on the credentials list. | Pass      |
+| 2       | harold@test.com         | m208C!!g0wWk   | Panda         | Your account is now updated on the credentials list. | Pass      |
+| 3       |          |    |          | There is no entry number 3 | Pass      |
+| A       |          |    |          | Invalid id. Please enter an integer number. | Pass      |
+| 0       |          |    |          | LockMinder Menu | Pass      |
+
+</details>
