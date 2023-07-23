@@ -17,15 +17,13 @@ DATABASE = f"""CREATE TABLE IF NOT EXISTS {TABLE}
                   password TEXT NOT NULL,
                   service TEXT NOT NULL);"""
 
-WELCOME = """
-  _                _    __  __ _           _           
- | |              | |  |  \/  (_)         | |          
- | |     ___   ___| | _| \  / |_ _ __   __| | ___ _ __ 
- | |    / _ \ / __| |/ / |\/| | | '_ \ / _` |/ _ \ '__|
- | |___| (_) | (__|   <| |  | | | | | | (_| |  __/ |   
- |______\___/ \___|_|\_\_|  |_|_|_| |_|\__,_|\___|_|   
-"""
-
+def print_ascii_banner():
+    try:
+        with open("./welcome.txt", "r") as file:
+            banner = file.read()
+            print(banner)
+    except FileNotFoundError:
+        print("Error: The banner file was not found.")
 
 def create_db():
     """
@@ -555,7 +553,7 @@ def main():
     Returns:
         None: This function does not return any value explicitly.
     """
-    print(WELCOME)
+    print_ascii_banner()
     database = create_db()
     display_menu(database)
 
