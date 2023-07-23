@@ -331,13 +331,13 @@ During code testing for input validation, an issue was discovered in the generat
 
 
 ### Validator
-CI Python Linter was used to validate this project, no errors were returned after the fixes mentioned previously.
+CI Python Linter was used to validate this project, and no errors were returned after addressing the fixes mentioned previously. The code is now compliant with the PEP8 standards, ensuring its quality and readability.
 ![CI Python Linter](./readme/python-linter.png)
 
 # Credits
 ## Code
 The following sources were used for this project:
-- Python Essentials from [Code Institut](https://codeinstitute.net/de/)
+- [Code Institute](https://codeinstitute.net/de/)
 - [W3 Schools](https://www.w3schools.com/python/default.asp#gsc.tab=0)
 - [SQLite 3 Documentation](https://docs.python.org/3/library/sqlite3.html)
 - [prettytable documentation](https://pypi.org/project/prettytable/)

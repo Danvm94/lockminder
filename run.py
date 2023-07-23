@@ -338,7 +338,7 @@ def update_account(database, description):
                 query = (
                     f"UPDATE {TABLE}"
                     "SET username = ?, password = ?, service = ?"
-                    "WHERE id = {entry_id}"
+                    "WHERE id = {entry_id}", new_entry
                     )
                 cursor.execute(query)
                 row = get_database_values(database, key="id", value=entry_id)
