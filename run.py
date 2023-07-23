@@ -336,11 +336,11 @@ def update_account(database, description):
                 print(row)
                 new_entry = prompt_values(database)
                 query = (
-                    f"UPDATE {TABLE}"
-                    "SET username = ?, password = ?, service = ?"
-                    "WHERE id = {entry_id}", new_entry
-                    )
-                cursor.execute(query)
+                    f"UPDATE {TABLE} "
+                    "SET username = ?, password = ?, service = ? "
+                    "WHERE id = ?"
+                )
+                cursor.execute(query, (*new_entry, entry_id))
                 row = get_database_values(database, key="id", value=entry_id)
                 print(f"Your account is now updated on the credentials list.")
                 print(row)
