@@ -207,7 +207,7 @@ def request_id(database, message):
         print(f"LockMinder {message}\n")
         entry_id = input(
             f"""Please enter the ID of the account you'd like to {action},
-            or type 0 to return to the main menu: """)
+or type 0 to return to the main menu: """)
         if entry_id == "0":
             os.system('clear')
             display_menu(database)
