@@ -17,13 +17,27 @@ DATABASE = f"""CREATE TABLE IF NOT EXISTS {TABLE}
                   password TEXT NOT NULL,
                   service TEXT NOT NULL);"""
 
+
 def print_ascii_banner():
+    """
+    Display the ASCII banner from the 'welcome.txt' file.
+
+    This function reads the content of the ASCII banner from the
+    'welcome.txt' file and prints it to the console.
+    If the 'welcome.txt' file is not found in the current
+    directory, it will print an error message.
+
+    Note:
+        Ensure that the 'welcome.txt' file contains the properly
+        formatted ASCII banner for correct display.
+    """
     try:
         with open("./welcome.txt", "r") as file:
             banner = file.read()
             print(banner)
     except FileNotFoundError:
         print("Error: The banner file was not found.")
+
 
 def create_db():
     """

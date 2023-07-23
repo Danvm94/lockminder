@@ -314,13 +314,40 @@ By rigorously testing the application, we can confidently deliver a reliable and
 The website displays correctly across different browsers and screen sizes.
 
 ## Solved bugs
+### Validator
 During the [PEP8](https://pep8ci.herokuapp.com/#) tests a few errors were found. The list below provides details of these errors:
 - E501 Line Too Long: This error occurs when a line in the code exceeds the maximum line length allowed by PEP8 standards. To resolve this issue, simply extend the current code to the next line, breaking it into smaller, more readable chunks. This helps maintain code readability and adheres to PEP8 guidelines.
 - E302 Expected 2 Blank Lines, Found 1: This error occurs when there is only one blank line between two code blocks or functions, instead of the expected two blank lines as per PEP8 guidelines. To resolve this issue, insert an additional blank line to ensure there are two consecutive blank lines between different code blocks, improving code readability and adhering to PEP8 standards.
 
+These issues were resolved in the following git commit:
+  
+- [commit ff9824e](https://github.com/Danvm94/lockminder/commit/ff9824eb10d598d9590124bd9414cc26a31b2f72)
+- [commit 10e2edb](https://github.com/Danvm94/lockminder/commit/10e2edb5747bc6d6678801660679f091db6a23ae)
+
+### Code
+During code testing for input validation, an issue was discovered in the generate password function where it was not properly checking the user's input for a valid password length (1 - 50 characters). The issue has been fixed and addressed in the following git commit:
+
+- [commit 1883da1](https://github.com/Danvm94/lockminder/commit/1883da14c718de093804e47d1c9310a9356a9ca0)
+
 
 ### Validator
-CI Python Linter was used to validate this project, no errors were returned.
-![CI Python Linter](documentation/python_linter.png)
+CI Python Linter was used to validate this project, no errors were returned after the fixes mentioned previously.
+![CI Python Linter](./readme/python-linter.png)
 
-## Solved bugs
+# Credits
+## Code
+The following sources were used for this project:
+- Python Essentials from [Code Institut](https://codeinstitute.net/de/)
+- [W3 Schools](https://www.w3schools.com/python/default.asp#gsc.tab=0)
+- [SQLite 3 Documentation](https://docs.python.org/3/library/sqlite3.html)
+- [prettytable documentation](https://pypi.org/project/prettytable/)
+- [Python.org](https://peps.python.org/pep-0008/#introduction)
+
+
+## Acknowledgements
+
+* Special thanks to my Mentor Darío Carrasquel for providing continuous and valuable feedback, guiding me throughout the project development.
+
+* I would also like to express my gratitude to Douglas Melo for the ongoing support during the course. We frequently discuss our projects, sharing ideas and thoughts to help each other improve and grow.
+
+- - - 
