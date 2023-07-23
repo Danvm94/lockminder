@@ -304,8 +304,23 @@ By rigorously testing the application, we can confidently deliver a reliable and
 | 1        | Ir!m:QIsuZ       | Pass      |
 | 50        | s0!T,xzdo8jDd$;'\?h;edr2sp4V+brjB`FK-X5@2GD#x\8:/F       | Pass      |
 | 51        | There is no entry number 3              | Pass      |
-| A        | Invalid id. Please enter an integer number | Pass    |
-| 0        | LockMinder Menu                         | Pass      |
+| A        | Invalid input. Please enter an integer number | Pass    |
+| 100        | Invalid input. Please enter an integer number from 1 to 50                         | Pass      |
 
 
 </details>
+
+## Compatibility
+The website displays correctly across different browsers and screen sizes.
+
+## Solved bugs
+During the [PEP8](https://pep8ci.herokuapp.com/#) tests a few errors were found. The list below provides details of these errors:
+- E501 Line Too Long: This error occurs when a line in the code exceeds the maximum line length allowed by PEP8 standards. To resolve this issue, simply extend the current code to the next line, breaking it into smaller, more readable chunks. This helps maintain code readability and adheres to PEP8 guidelines.
+- E302 Expected 2 Blank Lines, Found 1: This error occurs when there is only one blank line between two code blocks or functions, instead of the expected two blank lines as per PEP8 guidelines. To resolve this issue, insert an additional blank line to ensure there are two consecutive blank lines between different code blocks, improving code readability and adhering to PEP8 standards.
+
+
+### Validator
+CI Python Linter was used to validate this project, no errors were returned.
+![CI Python Linter](documentation/python_linter.png)
+
+## Solved bugs
