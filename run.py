@@ -131,11 +131,10 @@ def prompt_values(database):
     Prompt the user to enter values for each column in the 'credentials' table.
 
     This function interacts with the user to gather values for each column
-    in the 'credentials' table.
-    It fetches the column names and initializes a dictionary with the column
-    names as keys and empty strings as values.
+    in the 'credentials' table. It fetches the column names and initializes
+    a dictionary with the column names as keys and empty strings as values.
     The user is prompted to enter data for each column, and the input is
-    validated to ensure it does not exceed 64 characters.
+    validated to ensure it does not exceed 64 characters and is not empty.
     Once all values are obtained, a tuple containing the user-provided
     values is returned.
 
@@ -143,8 +142,9 @@ def prompt_values(database):
         database (sqlite3.Connection): A connection to the SQLite database.
 
     Returns:
-        tuple: A tuple containing the user-provided values for
-        each column in the 'credentials' table.
+        tuple: A tuple containing the user-provided values for each column
+        in the 'credentials' table. The order of values follows the table's
+        column order.
     """
     column_dict = get_column_names(database)
     for key, value in column_dict.items():
@@ -152,6 +152,8 @@ def prompt_values(database):
             column_dict[key] = input(f"Please type the {key}: ")
             if len(column_dict[key]) > 64:
                 print(f"Please use less than 64 characters for {key}")
+            elif len(column_dict[key]) <= 0:
+                print(f"The field '{key}' cannot be empty.")
             else:
                 break
     new_entry = tuple(value for value in column_dict.values())
