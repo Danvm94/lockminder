@@ -20,13 +20,11 @@ Experience LockMinder in action by visiting our live demo deployed on Heroku. Si
     * [Frameworks & Tools](#frameworks--tools)
 * [User Experience](#user-experience-ux)
 * [Design](#design)
-  * [Flowchart](#flowchart)
   * [Existing Features](#existing-features)
   * [Future Implementations](#future-implementations)
 * [Deployment](#deployment)
   * [Heroku Deployment](#heroku-deployment)
   * [Run locally](#run-locally)
-  * [Create data model and integrate using an API](#create-data-model-and-integrate-using-an-api)
 * [Testing](#testing)
 * [Credits](#credits)
 - - - 
