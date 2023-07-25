@@ -21,7 +21,7 @@ Experience LockMinder in action by visiting our live demo deployed on Heroku. Si
 * [User Experience](#user-experience-ux)
 * [Design](#design)
   * [Existing Features](#existing-features)
-  * [Future Implementations](#future-implementations)
+  * [Potential Enhancements](#potential-enhancements)
 * [Deployment](#deployment)
   * [Heroku Deployment](#heroku-deployment)
   * [Run locally](#run-locally)
