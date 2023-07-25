@@ -1,6 +1,6 @@
 # LockMinder
 <p align="center">
-  <img src="./readme/initial.png" alt="Initial">
+  <img src="./readme/introduction.gif" alt="Initial">
 </p>
 
 LockMinder is a user-friendly password manager software that helps you securely store and manage your account credentials. With an intuitive menu-based interface, you can easily add, view, update, and delete accounts in the encrypted SQLite database. LockMinder also offers a password generation tool for creating strong and randomized passwords. Simplify your digital life and keep your passwords safe with LockMinder.
@@ -159,7 +159,7 @@ Thanks to the template added in the front-end files, users can now interact with
 ### Retrieve a Password
 - The "Retrieve a Password" function enables users to access the password and other account details of a specific account stored in the credentials database. When users select this option from the main menu, they are prompted to enter the account ID of the desired account. Once the ID is provided, the function displays the corresponding account's information, including the associated service, username, and password, on the screen, allowing users to retrieve their account credentials with ease.
 <p align="center">
-  <img src="./readme/retrieve-a-password.gif" alt="Generate a Password">
+  <img src="./readme/retrieve-a-password.gif" alt="Retrieve a Password">
 </p>
 
 ### Exit
@@ -304,6 +304,16 @@ By rigorously testing the application, we can confidently deliver a reliable and
 | 51        | There is no entry number 3              | Pass      |
 | A        | Invalid input. Please enter an integer number | Pass    |
 | 100        | Invalid input. Please enter an integer number from 1 to 50                         | Pass      |
+
+
+</details>
+
+<details>
+  <summary>Exit the program</summary>
+
+| Return Result                     | Pass/Fail |
+|-----------------------------------|-----------|
+| You have now exited the program.  | Pass      |
 
 
 </details>
