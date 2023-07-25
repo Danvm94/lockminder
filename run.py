@@ -279,7 +279,7 @@ def add_account(database, message):
         print(f"Your account is now added to the credentials list.")
         row = get_database_values(database, key="id", value=last_row_id)
         print(row)
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
 # "2": view all accounts
@@ -304,7 +304,7 @@ def view_all_accounts(database, description):
     print(f"LockMinder {description}\n")
     rows = get_database_values(database)
     print(rows)
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
 # "3": update an account
@@ -347,7 +347,7 @@ def update_account(database, description):
                 print(f"Your account is now updated on the credentials list.")
                 print(row)
                 break
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
 # "4": delete an account
@@ -381,7 +381,7 @@ def delete_account(database, description):
                 cursor.execute(f"DELETE FROM {TABLE} WHERE id = {entry_id};")
                 print(f"The entry number {entry_id} is now deleted.")
                 break
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
 # "5": generate a password
@@ -423,7 +423,7 @@ def generate_password(database, description):
         except ValueError:
             os.system("clear")
             print("Invalid input. Please enter an integer number.")
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
 # "6": retrieve a password
@@ -454,32 +454,41 @@ def retrieve_password(database, description):
                 row = get_database_values(database, key="id", value=entry_id)
                 print(row)
                 break
-    display_menu(database) if replay_display_menu() else None
+    replay_display_menu(database)
 
 
-def replay_display_menu():
-    """Asks the user if they want to go back to the main menu.
+def replay_display_menu(database):
+    """
+    Replays the question for main menu display until the user decides to return to the main menu or exit the program.
 
-        Returns:
-            bool: True if the user wants to go back (chooses 'Y'),
-            False if they do not want to go back (chooses 'N').
+    Parameters:
+        database (object): The database or data structure containing the relevant information.
 
-        The function repeatedly prompts the user with a question asking if they
-        would like to return to the main menu. The user's input is converted to
-        uppercase using the 'upper()' method for case-insensitive comparison.
-        If the user chooses 'Y', the function returns True, indicating they
-        want to go back, and exits the loop.
-        If the user chooses 'N', the function returns False, indicating they
-        do not want to go back, and exits the loop.
+    Returns:
+        None
+
+    The function prompts the user for input and waits for a response.
+    If the user enters 'Y', it clears the screen, displays the main menu again using 'display_menu(database)',
+    and returns to the main menu.
+    If the user enters 'N', it exits the program using 'exit_program()' function and terminates the execution.
+    If the user enters an invalid option, the screen is cleared, and an error message "Invalid Input Option."
+    is displayed before prompting the user again.
     """
     while True:
         repeat = input(
-            "Would you like to go back to the main menu? (Y / N): ").upper()
+            """Would you like to go back to the main menu?
+Type 'Y' to return to the main menu or
+Type 'N' to exit the program: """).upper()
         if repeat == "Y":
             os.system("clear")
-            return True
+            display_menu(database)
+            break
         elif repeat == "N":
-            return False
+            exit_program()
+            break
+        else:
+            os.system("clear")
+            print("Invalid Input Option.")
 
 
 def display_menu(database):
@@ -510,7 +519,7 @@ def display_menu(database):
         "4": [delete_account, "Delete an account"],
         "5": [generate_password, "Generate a password"],
         "6": [retrieve_password, "Retrieve a password"],
-        "0": [exit, "Exit."]
+        "0": [exit_program, "Exit the program"]
     }
     while True:
         print_menu(options)
@@ -551,6 +560,25 @@ def print_menu(options):
     for key, value in options.items():
         menu.add_row([key, value[1]])
     print(menu)
+
+
+def exit_program():
+    """
+    Exit the program.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+
+    The function clears the screen using 'os.system("clear")' (or 'os.system("cls")' for Windows),
+    displays a farewell message "You have now exited the program." and terminates the program
+    using the 'exit()' function.
+    """
+    os.system("clear")
+    print("You have now exited the program.")
+    exit()
 
 
 def main():
