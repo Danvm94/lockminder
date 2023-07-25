@@ -459,20 +459,24 @@ def retrieve_password(database, description):
 
 def replay_display_menu(database):
     """
-    Replays the question for main menu display until the user decides to return to the main menu or exit the program.
+    Replays the question for main menu display until the user
+    decides to return to the main menu or exit the program.
 
     Parameters:
-        database (object): The database or data structure containing the relevant information.
+        database (object): The database or data structure
+        containing the relevant information.
 
     Returns:
         None
 
     The function prompts the user for input and waits for a response.
-    If the user enters 'Y', it clears the screen, displays the main menu again using 'display_menu(database)',
-    and returns to the main menu.
-    If the user enters 'N', it exits the program using 'exit_program()' function and terminates the execution.
-    If the user enters an invalid option, the screen is cleared, and an error message "Invalid Input Option."
-    is displayed before prompting the user again.
+    If the user enters 'Y', it clears the screen, displays the main menu
+    again using 'display_menu(database)', and returns to the main menu.
+    If the user enters 'N', it exits the program using 'exit_program()'
+    function and terminates the execution.
+    If the user enters an invalid option, the screen is cleared,
+    and an error message "Invalid Input Option." is displayed before
+    prompting the user again.
     """
     while True:
         repeat = input(
@@ -572,9 +576,10 @@ def exit_program():
     Returns:
         None
 
-    The function clears the screen using 'os.system("clear")' (or 'os.system("cls")' for Windows),
-    displays a farewell message "You have now exited the program." and terminates the program
-    using the 'exit()' function.
+    The function clears the screen using 'os.system("clear")'
+     (or 'os.system("cls")' for Windows),
+    displays a farewell message "You have now exited the program."
+     and terminates the program using the 'exit()' function.
     """
     os.system("clear")
     print("You have now exited the program.")
